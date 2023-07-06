@@ -1,11 +1,11 @@
 <?php
 
 
-
+//get order data
 function  get_order (){
 
 
-  
+  //order id parameter
   $order_id = isset ($_GET['order_id'])? $_GET['order_id']: '';
 
   $curl = curl_init();
@@ -41,9 +41,9 @@ function  get_order (){
 }
 
 $data =get_order();
+//products array countian bundel offers or no
 $products_array = isset ($data->order->products)? $data->order->products : '' ;
 
-// echo isset($_GET['submit']);
 
   if(isset($_GET['submit'])){
 
@@ -54,39 +54,41 @@ $products_array = isset ($data->order->products)? $data->order->products : '' ;
 
       echo '<div class = "echo_text" style = "color :green">Success</div></br>';
       echo '<div class = "echo_text">';
+      //check if has coupon
       if(isset($data->order->coupon)){
         echo 'لقد استخدمت'.$data->order->coupon->code.'</br>';
         echo 'تم خصم مبلغ'.$data->order->coupon->discount_string.'من إجمالي فاتورتك'.'</br>';
         echo ' العروض التي تستخدمها  :  ';
         echo isset ($products_array[count($products_array)-1]->meta->bundle_offer)? $products_array[count($products_array)-1]->meta->bundle_offer->name.'</br>' :'لا يوجد عروض</br>';
-        if($data->order->payment->invoice[4]->value == "0.00000000000000"){
-          echo 'لا يخضع طلبك للضريبة';
-  
-        }else{
-          echo 'فاتورتك تشمل ضرائب بقيمة'.$data->order->payment->invoice[4]->value_string.'</br>';
-        }
-
-      }elseif(count($products_array) > 1){
+          if($data->order->payment->invoice[4]->value == "0.00000000000000"){
+            echo 'لا يخضع طلبك للضريبة';
+    
+          }else{
+            echo 'فاتورتك تشمل ضرائب بقيمة'.$data->order->payment->invoice[4]->value_string.'</br>';
+          }
+      //check if last product in bundle off
+      }elseif(count($products_array) >= 1 && isset ($products_array[count($products_array)-1]->meta->bundle_offer)){
         echo ' العروض التي تستخدمها  :  ';
         echo isset ($products_array[count($products_array)-1]->meta->bundle_offer)? $products_array[count($products_array)-1]->meta->bundle_offer->name.'</br>' :'لا يوجد عروض</br>';
 
-       if($data->order->payment->invoice[4]->value == "0.00000000000000"){
-        echo 'لا يخضع طلبك للضريبة'.'</br>';
+          if($data->order->payment->invoice[4]->value == "0.00000000000000"){
+            echo 'لا يخضع طلبك للضريبة'.'</br>';
 
-      }else{
-        echo 'فاتورتك تشمل ضرائب بقيمة'. $data->order->payment->invoice[4]->value_string.'</br>';
-      }
-      }elseif(count($products_array) == 1){
+          }else{
+            echo 'فاتورتك تشمل ضرائب بقيمة'. $data->order->payment->invoice[4]->value_string.'</br>';
+          }
+          //check if one product only
+      }elseif(!isset ($products_array[count($products_array)-1]->meta->bundle_offer)){
 
         echo ' العروض التي تستخدمها  :  ';
         echo isset ($products_array[count($products_array)-1]->meta->bundle_offer)? $products_array[count($products_array)-1]->meta->bundle_offer->name.'</br>' :'لا يوجد عروض</br>';
 
-       if($data->order->payment->invoice[2]->value == "0.00000000000000"){
-        echo 'لا يخضع طلبك للضريبة'.'</br>';
+          if($data->order->payment->invoice[2]->value == "0.00000000000000"){
+            echo 'لا يخضع طلبك للضريبة'.'</br>';
 
-      }else{
-        echo 'فاتورتك تشمل ضرائب بقيمة'. $data->order->payment->invoice[2]->value_string.'</br>';
-      }
+          }else{
+            echo 'فاتورتك تشمل ضرائب بقيمة'. $data->order->payment->invoice[2]->value_string.'</br>';
+          }
 
       }
       echo '</div>';
