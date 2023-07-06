@@ -66,7 +66,7 @@ $products_array = isset ($data->order->products)? $data->order->products : '' ;
           echo 'فاتورتك تشمل ضرائب بقيمة'.$data->order->payment->invoice[4]->value_string.'</br>';
         }
 
-      }elseif(count($products_array) >= 1){
+      }elseif(count($products_array) > 1){
         echo ' العروض التي تستخدمها  :  ';
         echo isset ($products_array[count($products_array)-1]->meta->bundle_offer)? $products_array[count($products_array)-1]->meta->bundle_offer->name.'</br>' :'لا يوجد عروض</br>';
 
@@ -76,6 +76,18 @@ $products_array = isset ($data->order->products)? $data->order->products : '' ;
       }else{
         echo 'فاتورتك تشمل ضرائب بقيمة'. $data->order->payment->invoice[4]->value_string.'</br>';
       }
+      }elseif(count($products_array) == 1){
+
+        echo ' العروض التي تستخدمها  :  ';
+        echo isset ($products_array[count($products_array)-1]->meta->bundle_offer)? $products_array[count($products_array)-1]->meta->bundle_offer->name.'</br>' :'لا يوجد عروض</br>';
+
+       if($data->order->payment->invoice[2]->value == "0.00000000000000"){
+        echo 'لا يخضع طلبك للضريبة'.'</br>';
+
+      }else{
+        echo 'فاتورتك تشمل ضرائب بقيمة'. $data->order->payment->invoice[2]->value_string.'</br>';
+      }
+
       }
       echo '</div>';
     }
