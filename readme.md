@@ -1,4 +1,5 @@
-## Zid Test 2 
+## Zid Task 2 Explaining well!
+##### (Get order details) web app
 This task involves extracting values from Zid's API and exploring the Order Endpoint. The purpose is to identify and explain the differences in the order body for three specific features: bundle offer, discount coupon, and VAT configuration.
 
 ### Order with Bundle Offer
