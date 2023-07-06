@@ -1,83 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-
-    <title>Get Order</title>
-      <style>
-
-
-   body {
-            direction: rtl;
-        }
-
-  .echo_text {
-    text-align: center;
-    font-size: 20px;
-    margin-top: 20px;
-    color :green"
-  }
-  
-  .form-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-  .form-group input[type="text"] {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-
-  .form-group button[type="submit"] {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-
-  .form-group button[type="submit"]:hover {
-    background-color: #45a049;
-  }
-</style>
-</head>
-<body>
-  
-
-    <div class="form-container">
-        <h2>احصل على تفاصيل الطلب</h2>
-        <form  method="GET">
-            <div class="form-group">
-            <label for="order_id">رقم الطلب:</label>
-            <input type="text" name="order_id" id="order_id" required>
-            </div>
-            <div class="form-group">
-            <button type="submit" name="submit">احصل على التفاصيل</button>
-            </div>
-        </form>
-    </div>
-
-</body>
-</html>
-
-
 <?php
 
 
@@ -121,7 +41,7 @@ function  get_order (){
 }
 
 $data =get_order();
-$products_array = $data->order->products;
+$products_array = isset ($data->order->products)? $data->order->products : '' ;
 
 // echo isset($_GET['submit']);
 
@@ -166,3 +86,82 @@ $products_array = $data->order->products;
 
 
 
+?>
+
+<!DOCTYPE html>
+  <html lang="ar">
+  <head>
+
+      <title>Get Order</title>
+        <style>
+
+
+    body {
+              direction: rtl;
+          }
+
+    .echo_text {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 20px;
+      color :green"
+    }
+    
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .form-group button[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .form-group button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+  </head>
+  <body>
+    
+
+      <div class="form-container">
+          <h2>احصل على تفاصيل الطلب</h2>
+          <form  method="GET">
+              <div class="form-group">
+              <label for="order_id">رقم الطلب:</label>
+              <input type="text" name="order_id" id="order_id" required>
+              </div>
+              <div class="form-group">
+              <button type="submit" name="submit">احصل على التفاصيل</button>
+              </div>
+          </form>
+      </div>
+
+  </body>
+</html>
